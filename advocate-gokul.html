@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advocate Gokul - Legal Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .hero {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sections */
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        /* Appointment Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Appointments Display */
+        .appointments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .appointment-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .appointment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .appointment-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        /* Messages */
+        .messages {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 2rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .message {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-time {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .admin-btn:hover {
+            background: #2980b9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .appointments-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%);
+            transition: transform 0.3s;
+            z-index: 1001;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">⚖️ Advocate Gokul</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#book-appointment">Book Appointment</a></li>
+                <li><a href="#appointments">My Appointments</a></li>
+                <li><a href="#admin">Admin Panel</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Advocate Gokul</h1>
+                <p>Expert Legal Services & Consultation</p>
+                <p>Specializing in Civil Law, Criminal Law, Corporate Law & Family Disputes</p>
+                <a href="#book-appointment" class="btn">Book Your Appointment</a>
+            </div>
+        </section>
+
+        <!-- Book Appointment Section -->
+        <section id="book-appointment" class="section">
+            <div class="container">
+                <h2>📅 Book an Appointment</h2>
+                <form id="appointment-form">
+                    <div class="form-group">
+                        <label for="client-name">Full Name *</label>
+                        <input type="text" id="client-name" name="clientName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="client-email">Email Address *</label>
+                        <input type="email" id="client-email" name="clientEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="client-phone">Phone Number *</label>
+                        <input type="tel" id="client-phone" name="clientPhone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="case-type">Type of Legal Issue *</label>
+                        <select id="case-type" name="caseType" required>
+                            <option value="">Select Case Type</option>
+                            <option value="civil">Civil Law</option>
+                            <option value="criminal">Criminal Law</option>
+                            <option value="corporate">Corporate Law</option>
+                            <option value="family">Family Disputes</option>
+                            <option value="property">Property Law</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-date">Preferred Date *</label>
+                        <input type="date" id="appointment-date" name="appointmentDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-time">Preferred Time *</label>
+                        <select id="appointment-time" name="appointmentTime" required>
+                            <option value="">Select Time</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="case-description">Brief Description of Your Case *</label>
+                        <textarea id="case-description" name="caseDescription" rows="4" 
+                                placeholder="Please provide a brief description of your legal issue..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">📩 Book Appointment</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Appointments Display Section -->
+        <section id="appointments" class="section">
+            <div class="container">
+                <h2>📋 Client Appointments</h2>
+                <div id="appointments-container" class="appointments-grid">
+                    <!-- Appointments will be displayed here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Panel Section -->
+        <section id="admin" class="section">
+            <div class="container">
+                <h2>🔐 Admin Panel - Advocate Gokul</h2>
+                <div class="admin-panel">
+                    <div class="admin-controls">
+                        <button class="admin-btn" onclick="showAllAppointments()">View All Appointments</button>
+                        <button class="admin-btn" onclick="showTodayAppointments()">Today's Appointments</button>
+                        <button class="admin-btn" onclick="showPendingAppointments()">Pending Confirmations</button>
+                        <button class="admin-btn" onclick="clearAllData()">Clear All Data</button>
+                    </div>
+                    
+                    <div class="messages" id="admin-messages">
+                        <h3>📧 Recent Appointment Notifications</h3>
+                        <div id="messages-container">
+                            <!-- Messages will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Global variables
+        let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+        let messages = JSON.parse(localStorage.getItem('messages')) || [];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayAppointments();
+            displayMessages();
+            setMinDate();
+        });
+
+        // Set minimum date to today
+        function setMinDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointment-date').min = today;
+        }
+
+        // Handle appointment form submission
+        document.getElementById('appointment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const appointment = {
+                id: Date.now(),
+                clientName: formData.get('clientName'),
+                clientEmail: formData.get('clientEmail'),
+                clientPhone: formData.get('clientPhone'),
+                caseType: formData.get('caseType'),
+                appointmentDate: formData.get('appointmentDate'),
+                appointmentTime: formData.get('appointmentTime'),
+                caseDescription: formData.get('caseDescription'),
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+
+            // Add appointment to array
+            appointments.push(appointment);
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+
+            // Create message for advocate
+            const message = {
+                id: Date.now(),
+                type: 'new_appointment',
+                title: '🔔 New Appointment Request',
+                content: `New appointment request from ${appointment.clientName} for ${appointment.caseType} case on ${appointment.appointmentDate} at ${appointment.appointmentTime}.`,
+                timestamp: new Date().toISOString(),
+                appointmentId: appointment.id
+            };
+
+            messages.push(message);
+            localStorage.setItem('messages', JSON.stringify(messages));
+
+            // Show success notification
+            showNotification('Appointment request submitted successfully! You will receive a confirmation soon.', 'success');
+
+            // Reset form
+            this.reset();
+
+            // Refresh displays
+            displayAppointments();
+            displayMessages();
+
+            // Send email notification (simulated)
+            sendEmailNotification(appointment);
+        });
+
+        // Display appointments
+        function displayAppointments(appointmentsToShow = appointments) {
+            const container = document.getElementById('appointments-container');
+            
+            if (appointmentsToShow.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1 / -1;">No appointments found.</p>';
+                return;
+            }
+
+            container.innerHTML = appointmentsToShow.map(appointment => `
+                <div class="appointment-card">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                        <h3 style="color: #2c3e50; margin: 0;">${appointment.clientName}</h3>
+                        <span class="appointment-status status-${appointment.status}">${appointment.status}</span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <strong>📧 Email:</strong><br>
+                            <span style="color: #666;">${appointment.clientEmail}</span>
+                        </div>
+                        <div>
+                            <strong>📞 Phone:</strong><br>
+                            <span style="color: #666;">${appointment.clientPhone}</span>
+                        </div>
+                        <div>
+                            <strong>⚖️ Case Type:</strong><br>
+                            <span style="color: #666; text-transform: capitalize;">${appointment.caseType}</span>
+                        </div>
+                        <div>
+                            <strong>📅 Date & Time:</strong><br>
+                            <span style="color: #666;">${formatDate(appointment.appointmentDate)} at ${formatTime(appointment.appointmentTime)}</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <strong>📝 Case Description:</strong><br>
+                        <span style="color: #666;">${appointment.caseDescription}</span>
+                    </div>
+                    
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="admin-btn" onclick="updateAppointmentStatus(${appointment.id}, 'confirmed')" 
+                                ${appointment.status === 'confirmed' ? 'disabled' : ''}>
+                            ✅ Confirm
+                        </button>
+                        <button class="admin-btn" onclick="updateAppointmentStatus(${appointment.id}, 'completed')"
+                                ${appointment.status === 'completed' ? 'disabled' : ''}>
+                            ✅ Mark Complete
+                        </button>
+                        <button class="admin-btn" onclick="deleteAppointment(${appointment.id})" 
+                                style="background: #dc3545;">
+                            🗑️ Delete
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: #888;">
+                        <strong>Submitted:</strong> ${formatDateTime(appointment.createdAt)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Display messages
+        function displayMessages() {
+            const container = document.getElementById('messages-container');
+            
+            if (messages.length === 0) {
+                container.innerHTML = '<p style="color: #ccc;">No messages yet.</p>';
+                return;
+            }
+
+            container.innerHTML = messages.slice(-10).reverse().map(message => `
+                <div class="message">
+                    <div class="message-time">${formatDateTime(message.timestamp)}</div>
+                    <h4>${message.title}</h4>
+                    <p>${message.content}</p>
+                </div>
+            `).join('');
+        }
+
+        // Update appointment status
+        function updateAppointmentStatus(appointmentId, newStatus) {
+            const appointmentIndex = appointments.findIndex(app => app.id === appointmentId);
+            if (appointmentIndex !== -1) {
+                appointments[appointmentIndex].status = newStatus;
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+
+                // Create status update message
+                const appointment = appointments[appointmentIndex];
+                const message = {
+                    id: Date.now(),
+                    type: 'status_update',
+                    title: `📋 Appointment ${newStatus.charAt(0).toUpperCase() + newStatus.slice(1)}`,
+                    content: `Appointment with ${appointment.clientName} has been ${newStatus}.`,
+                    timestamp: new Date().toISOString(),
+                    appointmentId: appointmentId
+                };
+
+                messages.push(message);
+                localStorage.setItem('messages', JSON.stringify(messages));
+
+                showNotification(`Appointment ${newStatus} successfully!`, 'success');
+                displayAppointments();
+                displayMessages();
+
+                // Send notification email (simulated)
+                sendStatusUpdateNotification(appointment, newStatus);
+            }
+        }
+
+        // Delete appointment
+        function deleteAppointment(appointmentId) {
+            if (confirm('Are you sure you want to delete this appointment?')) {
+                appointments = appointments.filter(app => app.id !== appointmentId);
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                
+                showNotification('Appointment deleted successfully!', 'success');
+                displayAppointments();
+            }
+        }
+
+        // Admin panel functions
+        function showAllAppointments() {
+            displayAppointments(appointments);
+        }
+
+        function showTodayAppointments() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayAppointments = appointments.filter(app => app.appointmentDate === today);
+            displayAppointments(todayAppointments);
+        }
+
+        function showPendingAppointments() {
+            const pendingAppointments = appointments.filter(app => app.status === 'pending');
+            displayAppointments(pendingAppointments);
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all appointments and messages? This action cannot be undone.')) {
+                localStorage.removeItem('appointments');
+                localStorage.removeItem('messages');
+                appointments = [];
+                messages = [];
+                displayAppointments();
+                displayMessages();
+                showNotification('All data cleared successfully!', 'success');
+            }
+        }
+
+        // Notification functions
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type === 'error' ? 'error' : ''}`;
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // Simulated email notifications
+        function sendEmailNotification(appointment) {
+            console.log('📧 Email sent to Advocate Gokul:');
+            console.log(`Subject: New Appointment Request - ${appointment.clientName}`);
+            console.log(`Body: You have a new appointment request from ${appointment.clientName} (${appointment.clientEmail}) for ${appointment.caseType} case on ${appointment.appointmentDate} at ${appointment.appointmentTime}.`);
+        }
+
+        function sendStatusUpdateNotification(appointment, status) {
+            console.log('📧 Email sent to client:');
+            console.log(`Subject: Appointment ${status.charAt(0).toUpperCase() + status.slice(1)} - Advocate Gokul`);
+            console.log(`Body: Dear ${appointment.clientName}, your appointment scheduled for ${appointment.appointmentDate} at ${appointment.appointmentTime} has been ${status}.`);
+        }
+
+        // Utility functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        function formatTime(timeString) {
+            const time = new Date(`2000-01-01T${timeString}:00`);
+            return time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+
+        function formatDateTime(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add some demo data for demonstration
+        function addDemoData() {
+            if (appointments.length === 0) {
+                const demoAppointments = [
+                    {
+                        id: 1,
+                        clientName: "Rajesh Kumar",
+                        clientEmail: "rajesh.kumar@email.com",
+                        clientPhone: "+91 9876543210",
+                        caseType: "property",
+                        appointmentDate: new Date().toISOString().split('T')[0],
+                        appointmentTime: "10:00",
+                        caseDescription: "Property dispute with neighbor regarding boundary issues.",
+                        status: "confirmed",
+                        createdAt: new Date(Date.now() - 86400000).toISOString()
+                    },
+                    {
+                        id: 2,
+                        clientName: "Priya Sharma",
+                        clientEmail: "priya.sharma@email.com",
+                        clientPhone: "+91 8765432109",
+                        caseType: "family",
+                        appointmentDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+                        appointmentTime: "14:00",
+                        caseDescription: "Divorce proceedings and child custody matters.",
+                        status: "pending",
+                        createdAt: new Date(Date.now() - 43200000).toISOString()
+                    }
+                ];
+
+                appointments = demoAppointments;
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+
+                const demoMessages = [
+                    {
+                        id: 1,
+                        type: 'new_appointment',
+                        title: '🔔 New Appointment Request',
+                        content: 'New appointment request from Priya Sharma for family case.',
+                        timestamp: new Date(Date.now() - 43200000).toISOString(),
+                        appointmentId: 2
+                    }
+                ];
+
+                messages = demoMessages;
+                localStorage.setItem('messages', JSON.stringify(messages));
+
+                displayAppointments();
+                displayMessages();
+            }
+        }
+
+        // Add demo data on first load
+        setTimeout(addDemoData, 1000);
+    </script>
+</body>
+</html>
